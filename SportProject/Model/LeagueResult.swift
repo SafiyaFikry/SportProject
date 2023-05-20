@@ -6,7 +6,7 @@
 //
 
 import Foundation
-class MyResult:Decodable{
+class LeagueResult:Decodable{
     var success:Int?
     var result:[League]?
 }

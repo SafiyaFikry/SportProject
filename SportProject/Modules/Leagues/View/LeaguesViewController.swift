@@ -53,12 +53,23 @@ class LeaguesViewController: UIViewController ,UITableViewDelegate,UITableViewDa
         // How far the shadow is offset from the UICollectionViewCell’s frame
         cell.layer.shadowOffset = CGSize(width: 5, height: 5)
         
-        cell.imgLeague.kf.setImage(with: URL(string: leaguesViewModel.result[indexPath.row].league_logo ?? ""))
+        cell.imgLeague.layer.borderWidth = 1
+//        cell.imgLeague.layer.shadowRadius=10.0
+//        cell.imgLeague.layer.shadowColor=UIColor.black.cgColor
+//        cell.imgLeague.layer.shadowOpacity=0.2
+//        cell.imgLeague.layer.shadowOffset=CGSize(width: 10, height: 10)
+        cell.imgLeague.layer.masksToBounds = false
+        cell.imgLeague.layer.borderColor = UIColor.black.cgColor
+        cell.imgLeague.layer.cornerRadius = cell.imgLeague.frame.height/2
+        cell.imgLeague.clipsToBounds = true
+        
+        cell.imgLeague.kf.setImage(with: URL(string: leaguesViewModel.result[indexPath.row].league_logo ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRicMtQKsDDfklzvGcdWcD8rcHXcyeFQ0WEA&usqp=CAU"))
         cell.nameLeague.text = leaguesViewModel.result[indexPath.row].league_name
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        150.0
+        140.0
     }
+    
 }
