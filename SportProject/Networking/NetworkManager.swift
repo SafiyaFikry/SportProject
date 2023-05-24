@@ -37,6 +37,7 @@ class NetworkManager:NetworkService{
                 print("hello")
                 return
             }
+                
             handler(res)
         }
     }

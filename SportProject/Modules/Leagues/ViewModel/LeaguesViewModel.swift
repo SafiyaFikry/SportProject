@@ -12,15 +12,20 @@ class LeaguesViewModel{
         self.manager = manager
     }
     var passDataToLeaguesController:(()->Void) = {}
-    var result : [League]!=[]{
+//    var result : [League]!=[]{
+//        didSet{
+//            passDataToLeaguesController()
+//        }
+//    }
+    var leagueResponse : [League]!=[]{
         didSet{
             passDataToLeaguesController()
         }
     }
     
     func getLeaguesFromAPI(sport:String){
-        manager.getLeagues(url: URL(string: "https://apiv2.allsportsapi.com/\(sport.lowercased())/?met=Leagues&APIkey=76009b69e12cd1110e5c20a60fa25e1a3a162d0df70fd17ac68e0a704afbae54")!) {[weak self] (result:LeagueResult?) in
-            self?.result=result?.result
+        manager.getLeagues(url: URL(string: "https://apiv2.allsportsapi.com/\(sport.lowercased())/?met=Leagues&APIkey=76009b69e12cd1110e5c20a60fa25e1a3a162d0df70fd17ac68e0a704afbae54")!) {[weak self] (result:LeagueResponse?) in
+            self?.leagueResponse=result?.result
         }
     }
 }

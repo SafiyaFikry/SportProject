@@ -53,13 +53,13 @@ class SportsViewController: UIViewController,UICollectionViewDelegate,UICollecti
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if(indexPath.row>=4){
-            var alert = UIAlertController(title: "Alert!!", message: "\(sportsName[indexPath.row]) is not available right now", preferredStyle: UIAlertController.Style.actionSheet)
-            var action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default)
+            let alert = UIAlertController(title: "Alert!!", message: "\(sportsName[indexPath.row]) is not available right now", preferredStyle: UIAlertController.Style.actionSheet)
+            let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default)
             alert.addAction(action)
             self.present(alert, animated: true)
         }
         else{
-            var leagues = self.storyboard?.instantiateViewController(identifier: "leagues") as! LeaguesViewController
+            let leagues = self.storyboard?.instantiateViewController(identifier: "leagues") as! LeaguesViewController
             leagues.sportChosen = sportsName[indexPath.row]
             print(leagues.sportChosen.lowercased())
             self.navigationController?.pushViewController(leagues, animated: true)
