@@ -1,17 +1,16 @@
 //
-//  LeaguesTableViewCell.swift
+//  PlayerCellTableViewCell.swift
 //  SportProject
 //
-//  Created by Mac on 19/05/2023.
+//  Created by Mac on 23/05/2023.
 //
 
 import UIKit
 
-class LeaguesTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var videoBtnLeague: UIButton!
-    @IBOutlet weak var nameLeague: UILabel!
-    @IBOutlet weak var imgLeague: UIImageView!
+class PlayerCellTableViewCell: UITableViewCell {
+    @IBOutlet weak var img: UIImageView!
+    
+    @IBOutlet weak var label: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -35,4 +34,5 @@ class LeaguesTableViewCell: UITableViewCell {
             super.frame = frame
         }
     }
+
 }
