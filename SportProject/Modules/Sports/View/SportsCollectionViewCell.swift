@@ -9,6 +9,7 @@ import UIKit
 
 class SportsCollectionViewCell: UICollectionViewCell {
    
+    @IBOutlet weak var width: NSLayoutConstraint!
     @IBOutlet weak var nameSport: UILabel!
     @IBOutlet weak var imgSport: UIImageView!
     

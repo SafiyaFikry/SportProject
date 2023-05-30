@@ -7,13 +7,12 @@
 
 import UIKit
 import Kingfisher
-class SportsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
+class SportsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
-    var sportsName = ["Football","Tennis","Cricket","Basketball","Hockey","Baseball","American Football"]
-    var sportsImage = ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIy_juf-LnPOZ20kfKhXlJe-umOk2ltIF65ExvA7qGOaJyqXH2FEnFLkfk9vEm33WtDcI&usqp=CAU","https://www.daysoftheyear.com/cdn-cgi/image/dpr=1%2Cf=auto%2Cfit=cover%2Cheight=650%2Cq=70%2Csharpen=1%2Cwidth=956/wp-content/uploads/play-tennis-day.jpg","https://www.altoadige.it/image/contentid/policy:1.1325493:1507876771/image/image.jpg?f=3x2&w=627&$p$f$w=caf6c4a","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQPHiqyGaXO19F1GEGXwf9ODS76UIwC3Vpiw&usqp=CAU","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZ8BgdNAmNU0zIjmtmN3UIQ9oDR1xWgGAQg&usqp=CAU","https://techcrunch.com/wp-content/uploads/2019/03/GettyImages-844016022.jpg","https://lh3.googleusercontent.com/4xKvhDZuJFX60A4I5VH8dy8qyWoW5mL6o46kBqEKAIaBm4U7eGFf243erUukVqcPbysxZ56b4GAg=w1440-ns-nd-rj"]
+    var sportsName = ["Football","Basketball","Cricket","Tennis","Hockey","Baseball","American Football"]
+    var sportsImage = ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIy_juf-LnPOZ20kfKhXlJe-umOk2ltIF65ExvA7qGOaJyqXH2FEnFLkfk9vEm33WtDcI&usqp=CAU","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQPHiqyGaXO19F1GEGXwf9ODS76UIwC3Vpiw&usqp=CAU","https://www.altoadige.it/image/contentid/policy:1.1325493:1507876771/image/image.jpg?f=3x2&w=627&$p$f$w=caf6c4a","https://www.daysoftheyear.com/cdn-cgi/image/dpr=1%2Cf=auto%2Cfit=cover%2Cheight=650%2Cq=70%2Csharpen=1%2Cwidth=956/wp-content/uploads/play-tennis-day.jpg","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZ8BgdNAmNU0zIjmtmN3UIQ9oDR1xWgGAQg&usqp=CAU","https://techcrunch.com/wp-content/uploads/2019/03/GettyImages-844016022.jpg","https://lh3.googleusercontent.com/4xKvhDZuJFX60A4I5VH8dy8qyWoW5mL6o46kBqEKAIaBm4U7eGFf243erUukVqcPbysxZ56b4GAg=w1440-ns-nd-rj"]
     
     override func viewDidLoad() {
-        self.navigationItem.title = "Sports"
         super.viewDidLoad()
     }
     
@@ -41,6 +40,7 @@ class SportsViewController: UIViewController,UICollectionViewDelegate,UICollecti
 
         // How transparent the drop shadow is
         cell.layer.shadowOpacity = 0.2
+       // cell.width.constant = (UIScreen.main.bounds.size.width - 38) / 2
 
         // How far the shadow is offset from the UICollectionViewCell’s frame
         cell.layer.shadowOffset = CGSize(width: 5, height: 5)
@@ -52,7 +52,7 @@ class SportsViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if(indexPath.row>=4){
+        if(indexPath.row>=3){
             let alert = UIAlertController(title: "Alert!!", message: "\(sportsName[indexPath.row]) is not available right now", preferredStyle: UIAlertController.Style.actionSheet)
             let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default)
             alert.addAction(action)
@@ -65,7 +65,15 @@ class SportsViewController: UIViewController,UICollectionViewDelegate,UICollecti
             self.navigationController?.pushViewController(leagues, animated: true)
         }
     }
-
-
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 15.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.7
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (self.view.frame.width * 0.5) - 15, height: self.view.frame.width * 0.6)
+    }
 }
 

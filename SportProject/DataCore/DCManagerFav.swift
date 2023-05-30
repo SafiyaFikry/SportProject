@@ -19,11 +19,11 @@ class DCManagerFav{
     
     func insertRow(itemObj:Item){
         let entity = NSEntityDescription.entity(forEntityName: "FavTable", in: managedContext)
-        let movie = NSManagedObject(entity: entity!, insertInto: managedContext)
-        movie.setValue(itemObj.leagueId, forKey: "leagueId")
-        movie.setValue(itemObj.leagueName, forKey: "leagueName")
-        movie.setValue(itemObj.leagueLogo, forKey: "leagueLogo")
-        movie.setValue(itemObj.sportName, forKey: "sportName")
+        let table = NSManagedObject(entity: entity!, insertInto: managedContext)
+        table.setValue(itemObj.leagueId, forKey: "leagueId")
+        table.setValue(itemObj.leagueName, forKey: "leagueName")
+        table.setValue(itemObj.leagueLogo, forKey: "leagueLogo")
+        table.setValue(itemObj.sportName, forKey: "sportName")
         do{
             try managedContext.save()
         }
@@ -65,7 +65,7 @@ class DCManagerFav{
         do{
             arr=(try managedContext.fetch(fetchRequest))
             for item in arr{
-                result.append(Item(leagueId: item.value(forKey: "leagueId") as! Int, leagueName:item.value(forKey: "leagueName") as! String, leagueLogo: item.value(forKey: "leagueLogo") as! String, sportName: item.value(forKey: "sportName") as! String))
+                result.append(Item(leagueId: item.value(forKey: "leagueId") as? Int, leagueName:item.value(forKey: "leagueName") as? String, leagueLogo: item.value(forKey: "leagueLogo") as? String, sportName: item.value(forKey: "sportName") as? String))
             }
         }
         catch let error as NSError{

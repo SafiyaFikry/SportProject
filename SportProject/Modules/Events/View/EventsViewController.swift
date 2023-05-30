@@ -14,7 +14,7 @@ class EventsViewController: UIViewController,UICollectionViewDelegate,UICollecti
     var eventsViewModel:EventsViewModel!
     @IBOutlet weak var fav: UIButton!
     var managerFav=DCManagerFav.instance
-    
+    var isEntered:Bool!
     
     @IBAction func goBack(_ sender: UIButton) {
         self.dismiss(animated: true)
@@ -35,6 +35,7 @@ class EventsViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isEntered = false
         let item = Item(leagueId:leagueChosen.league_key,leagueName: leagueChosen.league_name,leagueLogo: leagueChosen.league_logo,sportName: sportChosen)
         
         if(managerFav.isExist(item: item)){
@@ -64,6 +65,7 @@ class EventsViewController: UIViewController,UICollectionViewDelegate,UICollecti
         eventsViewModel.passDataToEventsController = {[weak self] in
             DispatchQueue.main.async {
                 self?.collection.reloadData()
+               
             }
         }
         eventsViewModel.getUpcomingEventFromAPI(sport: sportChosen, league: leagueChosen!)
@@ -71,9 +73,6 @@ class EventsViewController: UIViewController,UICollectionViewDelegate,UICollecti
         eventsViewModel.getLatestResultFromAPI(sport: sportChosen, league: leagueChosen!)
       
         eventsViewModel.getTeamFromAPI(sport: sportChosen, league: leagueChosen!)
-        
-        print(eventsViewModel.teamResponse.count)
-        
         
     }
     
@@ -93,9 +92,31 @@ class EventsViewController: UIViewController,UICollectionViewDelegate,UICollecti
             default:
                 return 0
         }
+     
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        if(isEntered == false){
+//            if((self.eventsViewModel.upcomingEventResponse.isEmpty) && ((self.eventsViewModel.latestResultResponse.isEmpty) )){
+//                let alert = UIAlertController(title: "Alert!!", message: "there are no upcoming events or latest Result for now ", preferredStyle: UIAlertController.Style.actionSheet)
+//                let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default)
+//                alert.addAction(action)
+//                self.present(alert, animated: true)
+//            }
+//            else if((self.eventsViewModel.upcomingEventResponse.isEmpty)){
+//                let alert = UIAlertController(title: "Alert!!", message: "there are no upcoming events for now ", preferredStyle: UIAlertController.Style.actionSheet)
+//                let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default)
+//                alert.addAction(action)
+//                self.present(alert, animated: true)
+//            }
+//            else if((self.eventsViewModel.latestResultResponse.isEmpty)){
+//                let alert = UIAlertController(title: "Alert!!", message: "there are no latest Result for now ", preferredStyle: UIAlertController.Style.actionSheet)
+//                let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default)
+//                alert.addAction(action)
+//                self.present(alert, animated: true)
+//            }
+//            isEntered = true
+//        }
         switch(indexPath.section){
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "first", for: indexPath) as! FirstCollectionViewCell
@@ -106,8 +127,8 @@ class EventsViewController: UIViewController,UICollectionViewDelegate,UICollecti
             cell.layer.masksToBounds = false
            
             
-            cell.team1Img.kf.setImage(with: URL(string:eventsViewModel.upcomingEventResponse[indexPath.row].home_team_logo!),placeholder: UIImage(named: "l"))
-            cell.team2Img.kf.setImage(with: URL(string:eventsViewModel.upcomingEventResponse[indexPath.row].away_team_logo!),placeholder: UIImage(named: "l"))
+            cell.team1Img.kf.setImage(with: URL(string:eventsViewModel.upcomingEventResponse[indexPath.row].home_team_logo ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSil5p1XB2Bs-lhOvHWcHTMF82oGKCCpLSiaw&usqp=CAU"),placeholder: UIImage(named: "l"))
+            cell.team2Img.kf.setImage(with: URL(string:eventsViewModel.upcomingEventResponse[indexPath.row].away_team_logo ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSil5p1XB2Bs-lhOvHWcHTMF82oGKCCpLSiaw&usqp=CAU"),placeholder: UIImage(named: "l"))
             cell.dateLabel.text=eventsViewModel.upcomingEventResponse[indexPath.row].event_date
             cell.timeLabel.text=eventsViewModel.upcomingEventResponse[indexPath.row].event_time
             cell.team1Name.text=eventsViewModel.upcomingEventResponse[indexPath.row].event_home_team
@@ -120,12 +141,16 @@ class EventsViewController: UIViewController,UICollectionViewDelegate,UICollecti
             cell.layer.borderColor=UIColor( red: 0.0, green: 0.268, blue:0.556, alpha: 1.0 ).cgColor
             cell.layer.cornerRadius = 5.0
             cell.layer.masksToBounds = false
-            var scoreArray = eventsViewModel.latestResultResponse[indexPath.row].event_final_result?.split(separator: " - ")
-            cell.team1Score.text = String(scoreArray![0])
-            cell.team2Score.text = String(scoreArray![1])
-            
-            cell.team1Img.kf.setImage(with: URL(string:eventsViewModel.latestResultResponse[indexPath.row].home_team_logo!),placeholder: UIImage(named: "l"))
-            cell.team2Img.kf.setImage(with: URL(string:eventsViewModel.latestResultResponse[indexPath.row].away_team_logo!),placeholder: UIImage(named: "l"))
+            if(eventsViewModel.latestResultResponse[indexPath.row].event_final_result == "-"){
+                cell.team1Score.text = "-"
+                cell.team2Score.text = "-"
+            }else{
+                var scoreArray = eventsViewModel.latestResultResponse[indexPath.row].event_final_result?.split(separator: " - ")
+                cell.team1Score.text = String(scoreArray?[0] ?? "0")
+                cell.team2Score.text = String(scoreArray?[1] ?? "0")
+            }
+            cell.team1Img.kf.setImage(with: URL(string:eventsViewModel.latestResultResponse[indexPath.row].home_team_logo ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSil5p1XB2Bs-lhOvHWcHTMF82oGKCCpLSiaw&usqp=CAU"),placeholder: UIImage(named: "l"))
+            cell.team2Img.kf.setImage(with: URL(string:eventsViewModel.latestResultResponse[indexPath.row].away_team_logo ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSil5p1XB2Bs-lhOvHWcHTMF82oGKCCpLSiaw&usqp=CAU"),placeholder: UIImage(named: "l"))
             cell.dateLabel.text=eventsViewModel.latestResultResponse[indexPath.row].event_date
             cell.timeLabel.text=eventsViewModel.latestResultResponse[indexPath.row].event_time
             cell.team1Name.text=eventsViewModel.latestResultResponse[indexPath.row].event_home_team
@@ -142,8 +167,6 @@ class EventsViewController: UIViewController,UICollectionViewDelegate,UICollecti
             
             cell.teamImg.kf.setImage(with: URL(string:eventsViewModel.teamResponse[indexPath.row].team_logo ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRicMtQKsDDfklzvGcdWcD8rcHXcyeFQ0WEA&usqp=CAU"),placeholder: UIImage(named: "l"))
             cell.teamName.text=eventsViewModel.teamResponse[indexPath.row].team_name
-            
-            
             
             return cell
         }

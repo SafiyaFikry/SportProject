@@ -8,37 +8,18 @@
 import Foundation
 import Alamofire
 protocol NetworkService{
-    func getLeagues<T:Decodable>(url:URL,handler: @escaping (T?)->Void)
+    func getData<T:Decodable>(url:URL,handler: @escaping (T?,Error?)->Void)
 }
 class NetworkManager:NetworkService{
     
-    func getLeagues<T:Decodable>(url:URL,handler: @escaping (T?)->Void){
-//        let request = AF.request(url)
-//            request.response { response in
-//            switch response.result{
-//            case .success(let data):
-//                do{
-//                    let result = try JSONDecoder().decode(T.self,from: data!)
-//                    handler(result)
-//                }catch let error{
-//                    print(error.localizedDescription)
-//                    handler(nil)
-//                }
-//
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//
-//        }
+    func getData<T:Decodable>(url:URL,handler: @escaping (T?,Error?)->Void){
         
         let request = AF.request(url)
             request.responseDecodable(of:T.self) { response in
             guard let res = response.value else{
-                print("hello")
                 return
             }
-                
-            handler(res)
+            handler(res,response.error)
         }
     }
 }

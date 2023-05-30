@@ -21,10 +21,18 @@ class PlayerCellTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
+    override var frame: CGRect{
+        get {
+            return super.frame
+        }
+        set(newFrame){
+            var frame = newFrame
+            frame.origin.x += 8
+            frame.origin.y += 8
+            frame.size.width -= 2 * 8
+            frame.size.height -= 2 * 8
+            super.frame = frame
+        }
     }
 
 }
