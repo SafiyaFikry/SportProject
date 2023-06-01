@@ -680,12 +680,21 @@
                                 <rect key="frame" x="0.0" y="218" width="393" height="434"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dailyui_-_044_-_favorites" translatesAutoresizingMaskIntoConstraints="NO" id="hCH-ca-ujt">
-                                        <rect key="frame" x="0.0" y="-11" width="393" height="455"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1635918fab6854e489723a301619b7b2" translatesAutoresizingMaskIntoConstraints="NO" id="hCH-ca-ujt">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="434"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="hCH-ca-ujt" secondAttribute="trailing" id="6ms-mZ-0F3"/>
+                                    <constraint firstItem="hCH-ca-ujt" firstAttribute="leading" secondItem="0Qt-Zx-eTu" secondAttribute="leading" id="I6f-69-MUn"/>
+                                    <constraint firstItem="hCH-ca-ujt" firstAttribute="width" secondItem="0Qt-Zx-eTu" secondAttribute="width" id="SKy-zK-xF2"/>
+                                    <constraint firstItem="hCH-ca-ujt" firstAttribute="centerY" secondItem="0Qt-Zx-eTu" secondAttribute="centerY" id="XP9-AD-CDB"/>
+                                    <constraint firstItem="hCH-ca-ujt" firstAttribute="centerX" secondItem="0Qt-Zx-eTu" secondAttribute="centerX" id="iwa-3j-zo4"/>
+                                    <constraint firstAttribute="bottom" secondItem="hCH-ca-ujt" secondAttribute="bottom" id="lVC-rn-Tp1"/>
+                                    <constraint firstItem="hCH-ca-ujt" firstAttribute="centerX" secondItem="0Qt-Zx-eTu" secondAttribute="centerX" id="nJ7-f6-lhP"/>
+                                    <constraint firstItem="hCH-ca-ujt" firstAttribute="top" secondItem="0Qt-Zx-eTu" secondAttribute="top" id="slW-52-BEn"/>
+                                </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="lmf-aU-QIw">
                                 <rect key="frame" x="0.0" y="139" width="393" height="713"/>
@@ -792,7 +801,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="dailyui_-_044_-_favorites" width="1600" height="1200"/>
+        <image name="1635918fab6854e489723a301619b7b2" width="400" height="300"/>
         <image name="depositphotos_323173900-stock-illustration-vs-or-versus-text-logo" width="600" height="590"/>
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="soccerball" catalog="system" width="128" height="123"/>
